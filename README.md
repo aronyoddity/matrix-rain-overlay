@@ -130,9 +130,7 @@ wouldn't exist without it:
 ##Donate##
 If you like my idea and wish to support my endeavours you can donate to me if you wish!
 
-[Paypal.me](https://paypal.me/dreamygloom)
-
-[Donation Page](https://www.paypal.com/donate/?business=KZHTBD49RCE6Y&no_recurring=0&item_name=Creating+interesting+project+on+the+web%21&currency_code=USD)
+[Ko-fi](https://ko-fi.com/dreamygloom)
 
 
 ## License
