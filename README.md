@@ -127,6 +127,34 @@ wouldn't exist without it:
 - *The Matrix* (1999) for the visual effect it's imitating in the first
   place
 
+##Donate##
+If you like my idea and wish to support my endeavours you can donate to me if you wish!
+
+[Paypal.me](https://paypal.me/dreamygloom)
+
+[Donation Page](https://www.paypal.com/donate/?business=KZHTBD49RCE6Y&no_recurring=0&item_name=Creating+interesting+project+on+the+web%21&currency_code=USD)
+
+
 ## License
 
-MIT — do whatever you want with it.
+MIT License
+
+Copyright (c) [2026] [CMatrix-Desktop-Overlay]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
