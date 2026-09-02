@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Starts a fully click-through Matrix rain overlay across your whole
+# desktop, on the normal window layer (your own windows can still be
+# brought above it). Run cmatrix-overlay-stop to end it.
+set -euo pipefail
+
+BIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_DIR="$HOME/.config/cmatrix-overlay"
+
+if ! pgrep -x picom >/dev/null 2>&1; then
+    picom --config "$CONFIG_DIR/picom.conf" -b
+    sleep 0.5
+fi
+
+nohup python3 "$BIN_DIR/cmatrix-overlay-setup.py" >/tmp/cmatrix-overlay.log 2>&1 &
+disown
+sleep 1.5
+echo "Overlay launched (log: /tmp/cmatrix-overlay.log)."

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=__HOME__/.local/bin/cmatrix-overlay
+Icon=utilities-terminal
+Name=Matrix Rain
+Comment=Launch the fullscreen click-through Matrix rain overlay
+Terminal=false
