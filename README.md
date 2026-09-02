@@ -7,6 +7,8 @@ be brought above it (e.g. via "Always on Top" in your window manager).
 
 ![status](https://img.shields.io/badge/status-works%20for%20me-brightgreen)
 
+![Matrix rain overlay running over a desktop, with a terminal window layered on top of it](screenshots/demo.jpg)
+
 ## Requirements
 
 - Linux with an **X11** session (Xorg, or Xwayland — not pure Wayland; the
