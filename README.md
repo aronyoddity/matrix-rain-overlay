@@ -24,7 +24,7 @@ of them (Openbox, i3, XFCE, KDE/X11, etc).
 ## Install
 
 ```bash
-git clone <this-repo-url> matrix-rain-overlay
+git clone https://github.com/aronyoddity/matrix-rain-overlay.git
 cd matrix-rain-overlay
 ./install.sh
 ```
