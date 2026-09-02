@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Changes the rain color at any time after install. Restarts the overlay
+# if it's currently running, so the change is visible immediately.
+#
+# Usage: cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>
+set -euo pipefail
+
+CONFIG_DIR="$HOME/.config/cmatrix-overlay"
+# shellcheck source=lib/colors.sh
+source "$CONFIG_DIR/colors.sh"
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>" >&2
+    exit 1
+fi
+
+pair=$(resolve_color "$1") || { echo "Unknown color: $1" >&2; exit 1; }
+read -r normal bright <<<"$pair"
+
+render_alacritty_config "$normal" "$bright" "$CONFIG_DIR/alacritty.toml.template" "$CONFIG_DIR/alacritty.toml"
+echo "$1" > "$CONFIG_DIR/color.conf"
+echo "Rain color set to $1 (#$normal, glow #$bright)."
+
+if pgrep -f "alacritty --class CmatrixOverlay" >/dev/null 2>&1; then
+    echo "Restarting overlay to apply..."
+    "$HOME/.local/bin/cmatrix-overlay-stop" >/dev/null
+    sleep 0.3
+    "$HOME/.local/bin/cmatrix-overlay" >/dev/null
+fi

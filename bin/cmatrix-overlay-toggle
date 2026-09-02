@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Starts the overlay if it's not running, stops it if it is. Meant to be
+# bound to a keyboard shortcut -- install.sh offers to set one up.
+#
+# Matches on "alacritty --class CmatrixOverlay" rather than "matrix-rain.py":
+# pgrep -f matches any process whose command line *contains* the pattern,
+# and "matrix-rain.py" could plausibly show up in something unrelated
+# (e.g. `vim matrix-rain.py`).
+if pgrep -f "alacritty --class CmatrixOverlay" >/dev/null 2>&1; then
+    "$HOME/.local/bin/cmatrix-overlay-stop"
+else
+    "$HOME/.local/bin/cmatrix-overlay"
+fi

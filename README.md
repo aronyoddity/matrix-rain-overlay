@@ -33,7 +33,16 @@ cd matrix-rain-overlay
 
 The installer checks for missing dependencies and tells you what to install
 if anything's missing. It puts scripts in `~/.local/bin`, config in
-`~/.config/cmatrix-overlay`, and adds a desktop launcher icon.
+`~/.config/cmatrix-overlay`, and adds a desktop launcher icon. Run
+interactively (not piped), it also asks you to:
+
+- **pick a rain color** — green (default), red, blue, yellow, cyan,
+  magenta, white, or a custom hex code
+- **pick a keyboard shortcut** to toggle the overlay on/off (Openbox
+  only for now; defaults to `W-m`/Super+M, skippable)
+
+Both can be changed again later without re-running the installer — see
+below.
 
 ## Use
 
@@ -42,6 +51,11 @@ if anything's missing. It puts scripts in `~/.local/bin`, config in
 - `cmatrix-overlay` — start (returns immediately, runs in background)
 - `cmatrix-overlay-stop` — stop
 - `cmatrix-overlay-stop --all` — stop and also kill picom
+- `cmatrix-overlay-toggle` — start if stopped, stop if running (what the
+  hotkey from install.sh calls)
+- `cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>`
+  — change the rain color anytime; restarts the overlay to apply if it's
+  currently running
 
 ## Uninstall
 
@@ -73,18 +87,28 @@ picom) and a few percent of one CPU core, safe to leave running all day.
   (`_NET_WM_DESKTOP` = all desktops, `_NET_WM_STATE_STICKY`/
   `SKIP_TASKBAR`/`SKIP_PAGER`), plus clearing alacritty's resize-increment
   hints so the WM will actually let it fill the whole screen.
-- Config lives in `config/alacritty.toml` (`opacity = 0.0` — fully
+- Config is rendered from `config/alacritty.toml.template` into
+  `~/.config/cmatrix-overlay/alacritty.toml` (`opacity = 0.0` — fully
   transparent background, only the falling characters are visible; raise
-  this if you want a dark tint instead) and `config/picom.conf`.
+  this if you want a dark tint instead), plus `config/picom.conf`.
+- **Color**: `matrix-rain.py` always draws with curses' `COLOR_GREEN` (body)
+  and `COLOR_WHITE` (bold leading character) — "changing the color" doesn't
+  touch the Python script at all, it remaps what the terminal's `green` ANSI
+  slot actually renders as, via `colors.normal.green`/`colors.bright.green`
+  in the rendered `alacritty.toml`. `lib/colors.sh` holds the curated
+  hex pairs (and lightens an arbitrary custom hex by 45% toward white for
+  the "glow" shade) shared by `install.sh` and `cmatrix-overlay-set-color`.
+- **Hotkey**: `lib/install_keybind.py` does a marker-delimited text edit of
+  Openbox's `rc.xml` (not a full XML re-serialize, so it can't disturb
+  unrelated formatting/comments), then runs `openbox --reconfigure` to
+  apply it live. `uninstall.sh` calls it with `--remove` to clean up.
 
 ## Ideas for extending this
 
-- CLI flags on `matrix-rain.py` for color/speed/density instead of
-  hardcoded values.
 - A rainbow/multi-color mode.
-- A toggle keybinding instead of separate start/stop commands.
 - "Wake up..." Easter egg messages typed out like the movie's intro.
-- A user-editable settings file instead of editing the Python script.
+- Speed/density as configurable options instead of hardcoded values.
+- Hotkey support for WMs other than Openbox.
 - Multi-monitor awareness (currently sizes to the primary screen at
   launch).
 

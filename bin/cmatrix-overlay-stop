@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # Stops the cmatrix overlay. Leaves picom running (it's harmless/invisible
 # for normal desktop use) unless --all is passed, which also kills picom.
+#
+# Matches on "alacritty --class CmatrixOverlay" rather than "matrix-rain.py":
+# pkill -f matches any process whose command line *contains* the pattern,
+# and "matrix-rain.py" is exactly the kind of substring that could show up
+# in something unrelated (e.g. `vim matrix-rain.py`), which would kill it.
 pkill -f "cmatrix-overlay-setup.py" 2>/dev/null
-pkill -f "matrix-rain.py" 2>/dev/null && echo "Overlay stopped." || echo "No overlay was running."
+pkill -f "alacritty --class CmatrixOverlay" 2>/dev/null && echo "Overlay stopped." || echo "No overlay was running."
 
 if [[ "${1:-}" == "--all" ]]; then
     pkill -x picom 2>/dev/null && echo "picom stopped." || true
