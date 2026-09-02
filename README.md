@@ -88,6 +88,20 @@ picom) and a few percent of one CPU core, safe to leave running all day.
 - Multi-monitor awareness (currently sizes to the primary screen at
   launch).
 
+## Credits
+
+This is a standalone project, not a fork — it shares no code with cmatrix
+(`matrix-rain.py` is a from-scratch Python/curses reimplementation, written
+because cmatrix's own Japanese-character mode doesn't render real Unicode
+in modern terminals; see "How it works" above). But the idea obviously
+wouldn't exist without it:
+
+- [cmatrix](https://github.com/abishekvashok/cmatrix) — created by
+  **Chris Allegretta**, currently maintained by **Abishek V Ashok**
+  (GPL-3.0)
+- *The Matrix* (1999) for the visual effect it's imitating in the first
+  place
+
 ## License
 
 MIT — do whatever you want with it.
