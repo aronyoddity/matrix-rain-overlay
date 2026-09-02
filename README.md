@@ -55,7 +55,8 @@ below.
   hotkey from install.sh calls)
 - `cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>`
   — change the rain color anytime; restarts the overlay to apply if it's
-  currently running
+  currently running. Run with no argument for the interactive picker
+  (same menu install.sh shows).
 
 ## Uninstall
 

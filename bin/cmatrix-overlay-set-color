@@ -2,24 +2,41 @@
 # Changes the rain color at any time after install. Restarts the overlay
 # if it's currently running, so the change is visible immediately.
 #
-# Usage: cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>
+# Usage: cmatrix-overlay-set-color [green|red|blue|yellow|cyan|magenta|white|RRGGBB]
+# Run with no argument for an interactive picker (same menu as install.sh).
 set -euo pipefail
 
 CONFIG_DIR="$HOME/.config/cmatrix-overlay"
 # shellcheck source=lib/colors.sh
 source "$CONFIG_DIR/colors.sh"
 
-if [[ $# -ne 1 ]]; then
-    echo "Usage: cmatrix-overlay-set-color <green|red|blue|yellow|cyan|magenta|white|RRGGBB>" >&2
-    exit 1
+color_choice="${1:-}"
+if [[ -z "$color_choice" ]]; then
+    echo "Pick a rain color (Enter for the classic Matrix green):"
+    echo "  1) green (default)   5) cyan"
+    echo "  2) red                6) magenta"
+    echo "  3) blue               7) white"
+    echo "  4) yellow             8) custom hex code"
+    read -rp "Choice [1]: " choice
+    case "${choice:-1}" in
+        1|"") color_choice="green" ;;
+        2) color_choice="red" ;;
+        3) color_choice="blue" ;;
+        4) color_choice="yellow" ;;
+        5) color_choice="cyan" ;;
+        6) color_choice="magenta" ;;
+        7) color_choice="white" ;;
+        8) read -rp "Hex code (no #): " color_choice ;;
+        *) echo "Unrecognized choice, using green."; color_choice="green" ;;
+    esac
 fi
 
-pair=$(resolve_color "$1") || { echo "Unknown color: $1" >&2; exit 1; }
+pair=$(resolve_color "$color_choice") || { echo "Unknown color: $color_choice" >&2; exit 1; }
 read -r normal bright <<<"$pair"
 
 render_alacritty_config "$normal" "$bright" "$CONFIG_DIR/alacritty.toml.template" "$CONFIG_DIR/alacritty.toml"
-echo "$1" > "$CONFIG_DIR/color.conf"
-echo "Rain color set to $1 (#$normal, glow #$bright)."
+echo "$color_choice" > "$CONFIG_DIR/color.conf"
+echo "Rain color set to $color_choice (#$normal, glow #$bright)."
 
 if pgrep -f "alacritty --class CmatrixOverlay" >/dev/null 2>&1; then
     echo "Restarting overlay to apply..."
